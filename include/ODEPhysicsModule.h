@@ -7,6 +7,8 @@
 class ODEPhysicsModule {
 public:
     ODEPhysicsModule()
+        : world(0), space(0), contactgroup(0), ground(0),
+          body(0), bodyGeom(0)
     {
         dInitODE();
         world        = dWorldCreate();
@@ -121,18 +123,18 @@ private:
         }
     }
 
-    dWorldID       world;
-    dSpaceID       space;
-    dJointGroupID  contactgroup;
-    dGeomID        ground;
+    dWorldID       world{};
+    dSpaceID       space{};
+    dJointGroupID  contactgroup{};
+    dGeomID        ground{};
 
     // chassis
-    dBodyID        body;
-    dGeomID        bodyGeom;
+    dBodyID        body{};
+    dGeomID        bodyGeom{};
 
     // wheels
-    dBodyID        wheels[4];
-    dGeomID        wheelGeoms[4];
-    dJointID       joints[4];
+    dBodyID        wheels[4]{};
+    dGeomID        wheelGeoms[4]{};
+    dJointID       joints[4]{};
 };
 
