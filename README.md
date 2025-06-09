@@ -22,7 +22,8 @@ ctest
 ```
 
 The headless test runs a short simulation and verifies that the robot body
-remains above the ground.
+remains above the ground.  A second test checks that the rendering
+transforms produced from the physics state are properly synchronised.
 
 To run the graphical demo (with VSG installed):
 

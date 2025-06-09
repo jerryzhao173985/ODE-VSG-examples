@@ -24,3 +24,9 @@ add_executable(headless_test tests/headless_test.cpp)
 target_include_directories(headless_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(headless_test PRIVATE ${ODE_LIBRARIES})
 add_test(NAME headless COMMAND headless_test)
+
+# Synchronization test using a dummy rendering module
+add_executable(sync_test tests/sync_test.cpp)
+target_include_directories(sync_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(sync_test PRIVATE ${ODE_LIBRARIES})
+add_test(NAME sync COMMAND sync_test)
