@@ -60,7 +60,14 @@ public:
         for (int i = 0; i < 4; ++i) {
             scene->addChild(wheelTransforms[i]);
         }
-        viewer->getWindows()[0]->getOrCreateView()->scene = scene;
+        auto window = viewer->getWindows()[0];
+        window->getOrCreateView()->scene = scene;
+
+        // Create command graph and compile resources
+        auto camera = window->getOrCreateCamera();
+        auto commandGraph = vsg::createCommandGraphForView(window, camera, scene);
+        viewer->assignRecordAndSubmitTaskAndPresentation({commandGraph});
+        viewer->compile();
     }
 
     /// Every frame: pull data from physics and write into Transform matrices
@@ -109,7 +116,7 @@ int main(int /*argc*/, char** /*argv*/)
     renderer.createRobot();
 
     // single loop drives both physics and graphics
-    while (renderer.viewer->running()) {
+    while (renderer.viewer->advanceToNextFrame()) {
         physics.step();
         renderer.update(physics);
         renderer.viewer->handleEvents();
